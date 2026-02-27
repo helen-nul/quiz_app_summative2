@@ -1,5 +1,6 @@
 import tkinter as tk
 import csv
+from tkinter import messagebox
 from quiz_data import load_questions
 from quiz_utility import clean_name, character_check, length_check, presence_check
 from datetime import datetime
@@ -27,9 +28,10 @@ class Quizapp(tk.Tk):
         self.name_label = tk.Label(
             self,
             text="Enter your full name in the box below",
-            bg=BG
-            fg=TEXT
-            front=("Arial", 20)
+            bg=BG,
+            fg=TEXT,
+            font=("Arial", 18)
+                           
         )
         self.name_label.pack(pady=10)
 
@@ -45,10 +47,10 @@ class Quizapp(tk.Tk):
 
         self.submit_button = tk.Button(
             self,
-            text="Submit"
+            text="Submit",
             font=("Arial", 20), 
             fg=BUTTON_TEXT,
-            bg=BG
+            bg=BG,
             command=self.handle_submit 
         )
         self.submit_button.pack(pady=10)
@@ -60,7 +62,7 @@ class Quizapp(tk.Tk):
         for question in self.questions:
             q_label = tk.Label(
                 self,
-                text=f"Question {question_number}. {question['question']}
+                text=f"Question{question_number}. {question['question']}",
                 font=("Arial", 20),
                 wraplength=500, 
                 justify="center",
@@ -77,7 +79,7 @@ class Quizapp(tk.Tk):
                    self,
                    text=option, 
                    variable=answer_var,
-                   value=option_value
+                   value=option_value,
                    font=("Arial", 14),
                    bg=BG 
                 )
@@ -86,18 +88,18 @@ class Quizapp(tk.Tk):
             
             question_number += 1 
         
-    def hadle_submit(self): 
+    def handle_submit(self):
         
         st_name = clean_name(self.name_entry.get())
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
-        if self.validate_name_with_massage(st_name):
+        if self.validate_name_with_messages(st_name):
 
             answers = []
             for var in self.answer_vars:
                 answers.append(var.get())
             
-            with open(employee_records.csv", mode="a", newline="", encoding"utf-8") as file:
+            with open("employee_records.csv", mode="a", newline="", encoding="utf-8") as file:
                 writer = csv.writer(file)
                 writer.writerow([st_name, timestamp, answers])
 
@@ -110,17 +112,18 @@ class Quizapp(tk.Tk):
             self,
             text="Thank you for your submission, ",
             font=("Arial", 18),
-            bg = BG
+            bg = BG,
         ).pack(pady=20)
 
         tk.Label(
             self,
             text=f"{name}, the assessor will let you know your result within 5 days", 
             font=("Arial", 24),
-            wraplength=500
+            wraplength=500,
             justify="center",
-            bg = BG
-            ck(pady=10)
+            bg=BG,
+        ).pack(pady=10)
+        
 
         tk.Button(
             self,
@@ -132,6 +135,7 @@ class Quizapp(tk.Tk):
         ).pack(pady=30)
 
     def validate_name_with_messages(self, cleaned_name: str) -> bool:
+
         if not presence_check(cleaned_name):
             messagebox.showerror(
                 "Invalid name",
@@ -157,13 +161,13 @@ class Quizapp(tk.Tk):
     
     def clear_screen(self):
 
-        for widget in self,winfo_children():
+        for widget in self.winfo_children():
             widget.destroy()
 
 if __name__ == "__main__":
-    app = QuizApp(questions)
+    app = Quizapp(questions)
     app.mainloop()
-    
+
     
 
 
