@@ -1,5 +1,5 @@
 import csv
-def load_questions(filepath="quiz_questions.csv")
+def load_questions(filepath="quiz_questions.csv"):
     
 questions = []
 
