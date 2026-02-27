@@ -135,6 +135,7 @@ class Quizapp(tk.Tk):
         ).pack(pady=30)
 
     def validate_name_with_messages(self, cleaned_name: str) -> bool:
+        valid = True
 
         if not presence_check(cleaned_name):
             messagebox.showerror(
