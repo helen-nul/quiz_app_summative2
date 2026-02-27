@@ -1,10 +1,10 @@
 import csv
 def load_questions(filepath="quiz_questions.csv"):
     
-questions = []
+    questions = []
 
-with open(filepath, newline="", encoding="utf-8") as csvfile:
-    reader = csv.DictReader(csvfile)
+    with open(filepath, newline="", encoding="utf-8") as csvfile:
+        reader = csv.DictReader(csvfile)
     for row in reader:
         questions.append({
             "question": row["question"],
@@ -17,6 +17,6 @@ with open(filepath, newline="", encoding="utf-8") as csvfile:
             "correct": int(row["correct"]) - 1 
         })
 
-return questions
+    return questions
 
     
